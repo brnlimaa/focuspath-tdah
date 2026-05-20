@@ -4,180 +4,131 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditTaskScreen extends StatefulWidget {
-
   final Map tarefa;
 
-  const EditTaskScreen({
-    super.key,
-    required this.tarefa
-  });
+  const EditTaskScreen({super.key, required this.tarefa});
 
   @override
-  State<EditTaskScreen> createState() =>
-      _EditTaskScreenState();
+  State<EditTaskScreen> createState() => _EditTaskScreenState();
 }
 
-class _EditTaskScreenState
-    extends State<EditTaskScreen>{
-
+class _EditTaskScreenState extends State<EditTaskScreen> {
   late TextEditingController tituloController;
   late TextEditingController descricaoController;
+  late String prioridade;
+
+  final Map<String, Color> coresPrioridade = {
+    'alta': Colors.red,
+    'media': Colors.orange,
+    'baixa': Colors.green,
+  };
 
   @override
-  void initState(){
-
+  void initState() {
     super.initState();
-
-    tituloController=
-        TextEditingController(
-          text:
-          widget.tarefa['titulo'],
-        );
-
-    descricaoController=
-        TextEditingController(
-          text:
-          widget.tarefa['descricao'],
-        );
-
+    tituloController = TextEditingController(text: widget.tarefa['titulo']);
+    descricaoController = TextEditingController(text: widget.tarefa['descricao']);
+    prioridade = widget.tarefa['prioridade'] ?? 'media';
   }
 
   Future editarTarefa() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
 
-    try{
-
-      final prefs=
-      await SharedPreferences.getInstance();
-
-      final token=
-      prefs.getString('token');
-
-      final response=
-      await http.put(
-
-        Uri.parse(
-          'http://10.0.2.2:3000/tasks/${widget.tarefa['id']}',
-        ),
-
-        headers:{
-
-          'Content-Type':
-          'application/json',
-
-          'Authorization':
-          'Bearer $token'
-
+      final response = await http.put(
+        Uri.parse('http://10.0.2.2:4000/tasks/${widget.tarefa['id']}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
         },
-
-        body:jsonEncode({
-
-          'titulo':
-          tituloController.text,
-
-          'descricao':
-          descricaoController.text
-
+        body: jsonEncode({
+          'titulo': tituloController.text,
+          'descricao': descricaoController.text,
+          'prioridade': prioridade,
         }),
-
       );
 
-      if(response.statusCode==200){
-
+      if (response.statusCode == 200) {
         Navigator.pop(context);
-
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro: ${response.body}')),
+        );
       }
-
-    }catch(e){
-
-      print(e);
-
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro: $e')),
+      );
     }
-
   }
 
   @override
-  Widget build(BuildContext context){
-
+  Widget build(BuildContext context) {
     return Scaffold(
-
-      appBar:AppBar(
-
-        title:
-        const Text(
-          'Editar tarefa',
-        ),
-
-      ),
-
-      body:Padding(
-
-        padding:
-        const EdgeInsets.all(
-          20,
-        ),
-
-        child:Column(
-
-          children:[
-
+      appBar: AppBar(title: const Text('Editar tarefa')),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             TextField(
-
-              controller:
-              tituloController,
-
-              decoration:
-              const InputDecoration(
-
-                labelText:
-                'Título',
-
-              ),
-
+              controller: tituloController,
+              decoration: const InputDecoration(labelText: 'Título'),
             ),
-
-            const SizedBox(
-              height:20,
-            ),
-
+            const SizedBox(height: 20),
             TextField(
-
-              controller:
-              descricaoController,
-
-              decoration:
-              const InputDecoration(
-
-                labelText:
-                'Descrição',
-
-              ),
-
+              controller: descricaoController,
+              decoration: const InputDecoration(labelText: 'Descrição'),
             ),
-
-            const SizedBox(
-              height:30,
+            const SizedBox(height: 20),
+            const Text('Prioridade', style: TextStyle(fontSize: 16)),
+            const SizedBox(height: 8),
+            Row(
+              children: ['alta', 'media', 'baixa'].map((p) {
+                final selecionado = prioridade == p;
+                return Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: GestureDetector(
+                      onTap: () => setState(() => prioridade = p),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        decoration: BoxDecoration(
+                          color: selecionado
+                              ? coresPrioridade[p]
+                              : coresPrioridade[p]!.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                          border: selecionado
+                              ? Border.all(color: coresPrioridade[p]!, width: 2)
+                              : null,
+                        ),
+                        child: Center(
+                          child: Text(
+                            p[0].toUpperCase() + p.substring(1),
+                            style: TextStyle(
+                              color: selecionado ? Colors.white : coresPrioridade[p],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
-
-            ElevatedButton(
-
-              onPressed:
-              editarTarefa,
-
-              child:
-              const Text(
-                'Salvar alterações',
+            const SizedBox(height: 30),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: editarTarefa,
+                child: const Text('Salvar alterações'),
               ),
-
-            )
-
+            ),
           ],
-
         ),
-
       ),
-
     );
-
   }
-
 }

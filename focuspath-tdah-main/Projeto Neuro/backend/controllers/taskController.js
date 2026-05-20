@@ -1,152 +1,70 @@
 const db = require('../config/db');
+const jwt = require('jsonwebtoken');
 
-// Listar tarefas
-exports.getTasks = (req,res)=>{
-
-db.query(
-'SELECT * FROM tasks',
-
-(err,result)=>{
-
-if(err){
-
-return res.status(500).json(err);
-
+function getUserId(req) {
+  const auth = req.headers['authorization'];
+  if (!auth) return null;
+  const token = auth.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return decoded.id;
+  } catch {
+    return null;
+  }
 }
 
-res.json(result);
+// Listar tarefas do usuário
+exports.getTasks = (req, res) => {
+  const userId = getUserId(req);
+  if (!userId) return res.status(401).json({ message: 'Não autorizado' });
 
-});
-
+  db.query('SELECT * FROM tasks WHERE userId=?', [userId], (err, result) => {
+    if (err) return res.status(500).json(err);
+    res.json(result);
+  });
 };
-
 
 // Criar tarefa
-exports.createTask=(req,res)=>{
+exports.createTask = (req, res) => {
+  const userId = getUserId(req);
+  if (!userId) return res.status(401).json({ message: 'Não autorizado' });
 
-const {
-
-titulo,
-descricao,
-prioridade,
-categoria,
-dataLimite,
-userId
-
-}=req.body;
-
-db.query(
-
-`INSERT INTO tasks
-(titulo,descricao,prioridade,categoria,dataLimite,userId)
-
-VALUES(?,?,?,?,?,?)`,
-
-[
-titulo,
-descricao,
-prioridade,
-categoria,
-dataLimite,
-userId
-],
-
-(err,result)=>{
-
-if(err){
-
-return res.status(500).json(err);
-
-}
-
-res.json({
-
-message:"Tarefa criada"
-
-});
-
-}
-
-);
-
+  const { titulo, descricao, prioridade, categoria, dataLimite } = req.body;
+  db.query(
+    'INSERT INTO tasks (titulo,descricao,prioridade,categoria,dataLimite,userId) VALUES(?,?,?,?,?,?)',
+    [titulo, descricao, prioridade || 'media', categoria, dataLimite, userId],
+    (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.status(201).json({ message: 'Tarefa criada', id: result.insertId });
+    }
+  );
 };
-
 
 // Atualizar
-exports.updateTask=(req,res)=>{
+exports.updateTask = (req, res) => {
+  const userId = getUserId(req);
+  if (!userId) return res.status(401).json({ message: 'Não autorizado' });
 
-const {id}=req.params;
-
-const {
-
-titulo,
-descricao,
-prioridade
-
-}=req.body;
-
-db.query(
-
-`UPDATE tasks
-SET titulo=?,descricao=?,prioridade=?
-
-WHERE id=?`,
-
-[
-titulo,
-descricao,
-prioridade,
-id
-],
-
-(err)=>{
-
-if(err){
-
-return res.status(500).json(err);
-
-}
-
-res.json({
-
-message:"Atualizada"
-
-});
-
-}
-
-);
-
+  const { id } = req.params;
+  const { titulo, descricao, prioridade } = req.body;
+  db.query(
+    'UPDATE tasks SET titulo=?,descricao=?,prioridade=? WHERE id=? AND userId=?',
+    [titulo, descricao, prioridade || 'media', id, userId],
+    (err) => {
+      if (err) return res.status(500).json(err);
+      res.json({ message: 'Atualizada' });
+    }
+  );
 };
 
-
 // Deletar
-exports.deleteTask=(req,res)=>{
+exports.deleteTask = (req, res) => {
+  const userId = getUserId(req);
+  if (!userId) return res.status(401).json({ message: 'Não autorizado' });
 
-const {id}=req.params;
-
-db.query(
-
-'DELETE FROM tasks WHERE id=?',
-
-[id],
-
-(err)=>{
-
-if(err){
-
-return res.status(500).json(err);
-
-}
-
-res.json({
-
-message:"Removida"
-
-});
-
-}
-
-);
-
+  const { id } = req.params;
+  db.query('DELETE FROM tasks WHERE id=? AND userId=?', [id, userId], (err) => {
+    if (err) return res.status(500).json(err);
+    res.json({ message: 'Removida' });
+  });
 };
