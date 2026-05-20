@@ -1,16 +1,38 @@
+# Flutter
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
+.packages
+.pub-cache/
 build/
 
+# Android Studio / IntelliJ
 .idea/
 *.iml
+.gradle/
+local.properties
 
+# VS Code
+.vscode/
+
+# Node
 backend/node_modules/
+node_modules/
 
+# Variáveis de ambiente
 backend/.env
+.env
 
+# Logs
 *.log
 
+# Sistema operacional
 .DS_Store
 Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Flutter gerados
+**/generated_plugin_registrant.dart

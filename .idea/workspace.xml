@@ -5,21 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f8594f6-f018-4a1f-b8f1-bd9f5a1ec35d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/controllers/subtaskController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/routes/subtaskRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/pomodoro_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/task_detail_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Projeto facul.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Projeto facul.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/controllers/taskController.js" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/controllers/taskController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/create_task_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/create_task_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/edit_task_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/edit_task_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/register_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
