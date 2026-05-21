@@ -27,11 +27,16 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
   @override
   void initState() {
     super.initState();
-    tituloController = TextEditingController(text: widget.tarefa['titulo']);
-    descricaoController = TextEditingController(text: widget.tarefa['descricao']);
-    prioridade = widget.tarefa['prioridade'] ?? 'media';
-    if (widget.tarefa['dataLimite'] != null) {
-      dataLimite = DateTime.tryParse(widget.tarefa['dataLimite']);
+    tituloController = TextEditingController(
+      text: widget.tarefa['titulo']?.toString() ?? '',
+    );
+    descricaoController = TextEditingController(
+      text: widget.tarefa['descricao']?.toString() ?? '',
+    );
+    prioridade = widget.tarefa['prioridade']?.toString() ?? 'media';
+    if (widget.tarefa['dataLimite'] != null &&
+        widget.tarefa['dataLimite'].toString().isNotEmpty) {
+      dataLimite = DateTime.tryParse(widget.tarefa['dataLimite'].toString());
     }
   }
 
@@ -45,7 +50,19 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
     if (data != null) setState(() => dataLimite = data);
   }
 
+  String? _formatarData(DateTime? data) {
+    if (data == null) return null;
+    return '${data.year}-${data.month.toString().padLeft(2, '0')}-${data.day.toString().padLeft(2, '0')} 00:00:00';
+  }
+
   Future editarTarefa() async {
+    if (tituloController.text.isEmpty || descricaoController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Preencha todos os campos')),
+      );
+      return;
+    }
+
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
@@ -60,7 +77,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
           'titulo': tituloController.text,
           'descricao': descricaoController.text,
           'prioridade': prioridade,
-          'dataLimite': dataLimite?.toIso8601String(),
+          'dataLimite': _formatarData(dataLimite),
         }),
       );
 
@@ -81,20 +98,27 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(title: const Text('Editar tarefa')),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
               controller: tituloController,
-              decoration: const InputDecoration(labelText: 'Título'),
+              decoration: const InputDecoration(
+                labelText: 'Título',
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 20),
             TextField(
               controller: descricaoController,
-              decoration: const InputDecoration(labelText: 'Descrição'),
+              decoration: const InputDecoration(
+                labelText: 'Descrição',
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 20),
             const Text('Prioridade', style: TextStyle(fontSize: 16)),
@@ -122,7 +146,9 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                           child: Text(
                             p[0].toUpperCase() + p.substring(1),
                             style: TextStyle(
-                              color: selecionado ? Colors.white : coresPrioridade[p],
+                              color: selecionado
+                                  ? Colors.white
+                                  : coresPrioridade[p],
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -170,6 +196,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                 child: const Text('Salvar alterações'),
               ),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),

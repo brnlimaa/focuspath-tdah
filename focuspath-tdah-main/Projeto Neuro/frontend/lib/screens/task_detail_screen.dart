@@ -15,6 +15,7 @@ class TaskDetailScreen extends StatefulWidget {
 
 class _TaskDetailScreenState extends State<TaskDetailScreen> {
   List subtasks = [];
+  Map tarefaAtual = {};
   final novaEtapaController = TextEditingController();
 
   final Map<String, Color> coresPrioridade = {
@@ -23,11 +24,42 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
     'baixa': Colors.green,
   };
 
+  @override
+  void initState() {
+    super.initState();
+    tarefaAtual = Map.from(widget.tarefa);
+    carregarSubtasks();
+  }
+
+  Future carregarTarefa() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      final id = tarefaAtual['id'];
+
+      final response = await http.get(
+        Uri.parse('http://10.0.0.152:4000/tasks'),
+        headers: {'Authorization': 'Bearer $token'},
+      );
+
+      if (response.statusCode == 200) {
+        final List todas = jsonDecode(response.body);
+        final atualizada = todas.firstWhere(
+              (t) => t['id'] == id,
+          orElse: () => tarefaAtual,
+        );
+        setState(() => tarefaAtual = atualizada);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future carregarSubtasks() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
-      final id = widget.tarefa['id'];
+      final id = tarefaAtual['id'];
 
       final response = await http.get(
         Uri.parse('http://10.0.0.152:4000/tasks/$id/subtasks'),
@@ -50,7 +82,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
-      final id = widget.tarefa['id'];
+      final id = tarefaAtual['id'];
 
       final response = await http.post(
         Uri.parse('http://10.0.0.152:4000/tasks/$id/subtasks'),
@@ -74,7 +106,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
-      final taskId = widget.tarefa['id'];
+      final taskId = tarefaAtual['id'];
 
       await http.put(
         Uri.parse('http://10.0.0.152:4000/tasks/$taskId/subtasks/$id'),
@@ -95,7 +127,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
-      final taskId = widget.tarefa['id'];
+      final taskId = tarefaAtual['id'];
 
       await http.delete(
         Uri.parse('http://10.0.0.152:4000/tasks/$taskId/subtasks/$id'),
@@ -109,14 +141,8 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    carregarSubtasks();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final prioridade = widget.tarefa['prioridade'] ?? 'media';
+    final prioridade = tarefaAtual['prioridade'] ?? 'media';
     final cor = coresPrioridade[prioridade] ?? Colors.orange;
     final concluidas = subtasks.where((s) => s['concluida'] == 1).length;
     final total = subtasks.length;
@@ -131,9 +157,11 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => EditTaskScreen(tarefa: widget.tarefa),
+                  builder: (_) => EditTaskScreen(tarefa: tarefaAtual),
                 ),
               );
+              await carregarTarefa();
+              await carregarSubtasks();
             },
           ),
         ],
@@ -157,7 +185,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            widget.tarefa['titulo'],
+                            tarefaAtual['titulo'] ?? '',
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -181,7 +209,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    Text(widget.tarefa['descricao']),
+                    Text(tarefaAtual['descricao'] ?? ''),
                     if (total > 0) ...[
                       const SizedBox(height: 12),
                       LinearProgressIndicator(
@@ -192,7 +220,8 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                       const SizedBox(height: 4),
                       Text(
                         '$concluidas de $total etapas concluídas',
-                        style: const TextStyle(fontSize: 12, color: Colors.grey),
+                        style: const TextStyle(
+                            fontSize: 12, color: Colors.grey),
                       ),
                     ],
                   ],
@@ -283,7 +312,8 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.red),
                                 child: const Text('Excluir',
-                                    style: TextStyle(color: Colors.white)),
+                                    style: TextStyle(
+                                        color: Colors.white)),
                               ),
                             ],
                           ),

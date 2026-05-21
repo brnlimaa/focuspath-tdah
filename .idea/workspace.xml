@@ -5,28 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f8594f6-f018-4a1f-b8f1-bd9f5a1ec35d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/markdown.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/middleware/authMiddleware.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/assets/images/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/app_settings.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Projeto facul.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Projeto facul.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/controllers/taskController.js" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/controllers/taskController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/routes/subtaskRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/routes/subtaskRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/routes/taskRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/routes/taskRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/create_task_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/create_task_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/edit_task_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/edit_task_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/pomodoro_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/pomodoro_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/register_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/task_detail_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/task_detail_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/services/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/services/api_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

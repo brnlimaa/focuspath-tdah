@@ -9,6 +9,10 @@ class PomodoroScreen extends StatefulWidget {
 }
 
 class _PomodoroScreenState extends State<PomodoroScreen> {
+  static const Color corFoco = Color(0xFF7B9FD4);
+  static const Color corPausaCurta = Color(0xFF5BC8AF);
+  static const Color corPausaLonga = Color(0xFF9B8EC4);
+
   int minutosFoco = 25;
   int minutosPausaCurta = 5;
   int minutosPausaLonga = 15;
@@ -32,9 +36,9 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
   }
 
   Color get cor {
-    if (emFoco) return Colors.deepPurple;
-    if (ciclos % 4 == 0) return Colors.teal;
-    return Colors.green;
+    if (emFoco) return corFoco;
+    if (ciclos % 4 == 0) return corPausaLonga;
+    return corPausaCurta;
   }
 
   String get tempoFormatado {
@@ -57,9 +61,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
         setState(() => tempoRestante--);
       } else {
         timer?.cancel();
-
-        final eraFoco = emFoco; // salva estado ANTES de trocar
-
+        final eraFoco = emFoco;
         setState(() {
           rodando = false;
           if (emFoco) {
@@ -73,7 +75,6 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
             tempoRestante = minutosFoco * 60;
           }
         });
-
         _mostrarAlerta(eraFoco);
       }
     });
@@ -109,6 +110,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
               Navigator.pop(context);
               iniciar();
             },
+            style: TextButton.styleFrom(foregroundColor: corFoco),
             child: const Text('Iniciar'),
           ),
         ],
@@ -141,7 +143,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                 valor: tempFoco.toDouble(),
                 min: 1,
                 max: 60,
-                cor: Colors.deepPurple,
+                cor: corFoco,
                 onChanged: (v) => setDialogState(() => tempFoco = v.round()),
               ),
               const SizedBox(height: 16),
@@ -150,7 +152,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                 valor: tempPausaCurta.toDouble(),
                 min: 1,
                 max: 30,
-                cor: Colors.green,
+                cor: corPausaCurta,
                 onChanged: (v) =>
                     setDialogState(() => tempPausaCurta = v.round()),
               ),
@@ -160,7 +162,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                 valor: tempPausaLonga.toDouble(),
                 min: 1,
                 max: 60,
-                cor: Colors.teal,
+                cor: corPausaLonga,
                 onChanged: (v) =>
                     setDialogState(() => tempPausaLonga = v.round()),
               ),
@@ -169,6 +171,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
+              style: TextButton.styleFrom(foregroundColor: Colors.grey),
               child: const Text('Cancelar'),
             ),
             ElevatedButton(
@@ -183,6 +186,10 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                 });
                 Navigator.pop(context);
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: corFoco,
+                foregroundColor: Colors.white,
+              ),
               child: const Text('Salvar'),
             ),
           ],
@@ -248,7 +255,8 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              padding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               decoration: BoxDecoration(
                 color: cor.withOpacity(0.15),
                 borderRadius: BorderRadius.circular(20),

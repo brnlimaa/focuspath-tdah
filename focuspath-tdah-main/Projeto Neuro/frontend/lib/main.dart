@@ -41,13 +41,13 @@ class _MyAppState extends State<MyApp> {
           textTheme: TextTheme(
             bodyLarge: TextStyle(
                 color: Colors.yellow,
-                fontSize: textoGrande ? 20 : 16),
+                fontSize: textoGrande ? 24 : 18),
             bodyMedium: TextStyle(
                 color: Colors.yellow,
-                fontSize: textoGrande ? 18 : 14),
+                fontSize: textoGrande ? 22 : 16),
             titleLarge: TextStyle(
                 color: Colors.yellow,
-                fontSize: textoGrande ? 26 : 22,
+                fontSize: textoGrande ? 30 : 24,
                 fontWeight: FontWeight.bold),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
@@ -63,14 +63,14 @@ class _MyAppState extends State<MyApp> {
         )
             : ThemeData(
           colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.deepPurple),
+              seedColor: const Color(0xFF7B9FD4)),
           textTheme: TextTheme(
             bodyLarge:
-            TextStyle(fontSize: textoGrande ? 20 : 16),
+            TextStyle(fontSize: textoGrande ? 24 : 18),
             bodyMedium:
-            TextStyle(fontSize: textoGrande ? 18 : 14),
+            TextStyle(fontSize: textoGrande ? 22 : 16),
             titleLarge: TextStyle(
-                fontSize: textoGrande ? 26 : 22,
+                fontSize: textoGrande ? 30 : 24,
                 fontWeight: FontWeight.bold),
           ),
         ),

@@ -33,6 +33,11 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
     if (data != null) setState(() => dataLimite = data);
   }
 
+  String? _formatarData(DateTime? data) {
+    if (data == null) return null;
+    return '${data.year}-${data.month.toString().padLeft(2, '0')}-${data.day.toString().padLeft(2, '0')} 00:00:00';
+  }
+
   Future criarTarefa() async {
     if (tituloController.text.isEmpty || descricaoController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -57,7 +62,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
           'titulo': tituloController.text,
           'descricao': descricaoController.text,
           'prioridade': prioridade,
-          'dataLimite': dataLimite?.toIso8601String(),
+          'dataLimite': _formatarData(dataLimite),
         }),
       );
 
@@ -89,12 +94,18 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
           children: [
             TextField(
               controller: tituloController,
-              decoration: const InputDecoration(labelText: 'Título'),
+              decoration: const InputDecoration(
+                labelText: 'Título',
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 20),
             TextField(
               controller: descricaoController,
-              decoration: const InputDecoration(labelText: 'Descrição'),
+              decoration: const InputDecoration(
+                labelText: 'Descrição',
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 20),
             const Text('Prioridade', style: TextStyle(fontSize: 16)),
@@ -142,25 +153,21 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
               onTap: selecionarData,
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.calendar_today,
-                        size: 18, color: Colors.grey),
+                    const Icon(Icons.calendar_today, size: 18, color: Colors.grey),
                     const SizedBox(width: 8),
                     Text(
                       dataLimite == null
                           ? 'Selecionar data'
                           : '${dataLimite!.day.toString().padLeft(2, '0')}/${dataLimite!.month.toString().padLeft(2, '0')}/${dataLimite!.year}',
                       style: TextStyle(
-                        color: dataLimite == null
-                            ? Colors.grey
-                            : Colors.black,
+                        color: dataLimite == null ? Colors.grey : Colors.black,
                         fontSize: 16,
                       ),
                     ),

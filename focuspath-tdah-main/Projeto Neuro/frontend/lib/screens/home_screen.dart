@@ -167,11 +167,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListTile(
                   title: Text(
                     tarefa['titulo'],
-                    style: TextStyle(fontSize: settings.textoGrande ? 18 : 14),
+                    style: TextStyle(
+                      fontSize: settings.textoGrande ? 20 : 16,
+                      fontFamily: 'sans-serif',
+                    ),
                   ),
                   subtitle: Text(
                     tarefa['descricao'],
-                    style: TextStyle(fontSize: settings.textoGrande ? 15 : 12),
+                    style: TextStyle(
+                      fontSize: settings.textoGrande ? 16 : 13,
+                      fontFamily: 'sans-serif',
+                      color: Colors.grey[600],
+                    ),
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -214,8 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.red),
                                   child: const Text('Excluir',
-                                      style:
-                                      TextStyle(color: Colors.white)),
+                                      style: TextStyle(color: Colors.white)),
                                 ),
                               ],
                             ),
@@ -315,7 +321,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           : Icons.date_range,
                       size: 18,
                       color: entry.key == 'Hoje'
-                          ? Colors.deepPurple
+                          ? const Color(0xFF7B9FD4)
                           : Colors.grey,
                     ),
                     const SizedBox(width: 6),
@@ -325,7 +331,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontSize: settings.textoGrande ? 18 : 15,
                         fontWeight: FontWeight.bold,
                         color: entry.key == 'Hoje'
-                            ? Colors.deepPurple
+                            ? const Color(0xFF7B9FD4)
                             : Colors.grey[700],
                       ),
                     ),
