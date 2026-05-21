@@ -14,6 +14,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   final tituloController = TextEditingController();
   final descricaoController = TextEditingController();
   String prioridade = 'media';
+  DateTime? dataLimite;
   bool carregando = false;
 
   final Map<String, Color> coresPrioridade = {
@@ -21,6 +22,16 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
     'media': Colors.orange,
     'baixa': Colors.green,
   };
+
+  Future selecionarData() async {
+    final data = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    );
+    if (data != null) setState(() => dataLimite = data);
+  }
 
   Future criarTarefa() async {
     if (tituloController.text.isEmpty || descricaoController.text.isEmpty) {
@@ -37,7 +48,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
       final token = prefs.getString('token');
 
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:4000/tasks'),
+        Uri.parse('http://10.0.0.152:4000/tasks'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
@@ -46,6 +57,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
           'titulo': tituloController.text,
           'descricao': descricaoController.text,
           'prioridade': prioridade,
+          'dataLimite': dataLimite?.toIso8601String(),
         }),
       );
 
@@ -68,8 +80,9 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(title: const Text('Nova tarefa')),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +122,9 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                           child: Text(
                             p[0].toUpperCase() + p.substring(1),
                             style: TextStyle(
-                              color: selecionado ? Colors.white : coresPrioridade[p],
+                              color: selecionado
+                                  ? Colors.white
+                                  : coresPrioridade[p],
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -119,6 +134,39 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                   ),
                 );
               }).toList(),
+            ),
+            const SizedBox(height: 20),
+            const Text('Data limite', style: TextStyle(fontSize: 16)),
+            const SizedBox(height: 8),
+            GestureDetector(
+              onTap: selecionarData,
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16, vertical: 14),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.calendar_today,
+                        size: 18, color: Colors.grey),
+                    const SizedBox(width: 8),
+                    Text(
+                      dataLimite == null
+                          ? 'Selecionar data'
+                          : '${dataLimite!.day.toString().padLeft(2, '0')}/${dataLimite!.month.toString().padLeft(2, '0')}/${dataLimite!.year}',
+                      style: TextStyle(
+                        color: dataLimite == null
+                            ? Colors.grey
+                            : Colors.black,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             const SizedBox(height: 30),
             SizedBox(
@@ -130,6 +178,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                     : const Text('Salvar'),
               ),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),

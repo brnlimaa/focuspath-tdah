@@ -25,16 +25,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return;
     }
 
+    final senha = senhaController.text;
+    final temMinimo = senha.length >= 6;
+    final temMaiuscula = senha.contains(RegExp(r'[A-Z]'));
+    final temNumero = senha.contains(RegExp(r'[0-9]'));
+    final temEspecial = senha.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+
+    if (!temMinimo || !temMaiuscula || !temNumero || !temEspecial) {
+      final requisitos = <String>[];
+      if (!temMinimo) requisitos.add('• mínimo de 6 caracteres');
+      if (!temMaiuscula) requisitos.add('• uma letra maiúscula');
+      if (!temNumero) requisitos.add('• um número');
+      if (!temEspecial) requisitos.add('• um caractere especial (!@#\$%...)');
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Senha fraca! Sua senha precisa ter:\n${requisitos.join('\n')}',
+          ),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 4),
+        ),
+      );
+      return;
+    }
+
     setState(() => carregando = true);
 
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:4000/auth/register'),
+        Uri.parse('http://10.0.0.152:4000/auth/register'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'nome': nomeController.text,
           'email': emailController.text,
-          'senha': senhaController.text,
+          'senha': senha,
         }),
       );
 
@@ -102,6 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 labelText: 'Senha',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.lock),
+                helperText: 'Mín. 6 caracteres, 1 maiúscula, 1 número, 1 especial',
               ),
               obscureText: true,
             ),

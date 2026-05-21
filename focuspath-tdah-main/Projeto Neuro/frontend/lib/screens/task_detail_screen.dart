@@ -30,7 +30,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
       final id = widget.tarefa['id'];
 
       final response = await http.get(
-        Uri.parse('http://10.0.2.2:4000/tasks/$id/subtasks'),
+        Uri.parse('http://10.0.0.152:4000/tasks/$id/subtasks'),
         headers: {'Authorization': 'Bearer $token'},
       );
 
@@ -53,7 +53,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
       final id = widget.tarefa['id'];
 
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:4000/tasks/$id/subtasks'),
+        Uri.parse('http://10.0.0.152:4000/tasks/$id/subtasks'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
@@ -77,7 +77,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
       final taskId = widget.tarefa['id'];
 
       await http.put(
-        Uri.parse('http://10.0.2.2:4000/tasks/$taskId/subtasks/$id'),
+        Uri.parse('http://10.0.0.152:4000/tasks/$taskId/subtasks/$id'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
@@ -98,7 +98,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
       final taskId = widget.tarefa['id'];
 
       await http.delete(
-        Uri.parse('http://10.0.2.2:4000/tasks/$taskId/subtasks/$id'),
+        Uri.parse('http://10.0.0.152:4000/tasks/$taskId/subtasks/$id'),
         headers: {'Authorization': 'Bearer $token'},
       );
 
@@ -143,7 +143,6 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Card da tarefa
             Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -193,23 +192,19 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                       const SizedBox(height: 4),
                       Text(
                         '$concluidas de $total etapas concluídas',
-                        style:
-                        const TextStyle(fontSize: 12, color: Colors.grey),
+                        style: const TextStyle(fontSize: 12, color: Colors.grey),
                       ),
                     ],
                   ],
                 ),
               ),
             ),
-
             const SizedBox(height: 20),
             const Text(
               'Mini-etapas',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-
-            // Campo para nova etapa
             Row(
               children: [
                 Expanded(
@@ -235,10 +230,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                 ),
               ],
             ),
-
             const SizedBox(height: 12),
-
-            // Lista de subtasks
             Expanded(
               child: subtasks.isEmpty
                   ? const Center(
@@ -272,7 +264,32 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                     ),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete, size: 20),
-                      onPressed: () => deletarSubtask(sub['id']),
+                      onPressed: () async {
+                        final confirmar = await showDialog<bool>(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: const Text('Excluir etapa'),
+                            content: const Text(
+                                'Tem certeza que deseja excluir esta etapa?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, false),
+                                child: const Text('Cancelar'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, true),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red),
+                                child: const Text('Excluir',
+                                    style: TextStyle(color: Colors.white)),
+                              ),
+                            ],
+                          ),
+                        );
+                        if (confirmar == true) deletarSubtask(sub['id']);
+                      },
                     ),
                   );
                 },

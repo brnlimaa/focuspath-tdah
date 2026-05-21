@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:4000/auth/login'),
+        Uri.parse('http://10.0.0.152:4000/auth/login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'email': emailController.text,
@@ -41,7 +41,12 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Email ou senha inválidos')),
+          const SnackBar(
+            content: Text(
+              'Ops! Essas credenciais não coincidem com uma conta no nosso sistema! Verifique-as e tente novamente.',
+            ),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     } catch (e) {
@@ -61,9 +66,38 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'FocusPath',
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.calendar_today,
+                  size: 50,
+                  color: Color(0xFF7B9FD4),
+                ),
+                const SizedBox(width: 10),
+                RichText(
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'focus',
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'Path',
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF7B9FD4),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 8),
             const Text(
@@ -76,6 +110,11 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF7B9FD4), width: 2),
+                ),
+                labelStyle: TextStyle(color: Colors.grey),
+                floatingLabelStyle: TextStyle(color: Color(0xFF7B9FD4)),
                 prefixIcon: Icon(Icons.email),
               ),
               keyboardType: TextInputType.emailAddress,
@@ -87,6 +126,11 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const InputDecoration(
                 labelText: 'Senha',
                 border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF7B9FD4), width: 2),
+                ),
+                labelStyle: TextStyle(color: Colors.grey),
+                floatingLabelStyle: TextStyle(color: Color(0xFF7B9FD4)),
                 prefixIcon: Icon(Icons.lock),
               ),
             ),
@@ -97,9 +141,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: carregando ? null : login,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
+                  backgroundColor: const Color(0xFF7B9FD4),
+                  foregroundColor: Colors.white,
                 ),
                 child: carregando
-                    ? const CircularProgressIndicator()
+                    ? const CircularProgressIndicator(color: Colors.white)
                     : const Text('Entrar', style: TextStyle(fontSize: 16)),
               ),
             ),
@@ -108,6 +154,9 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const RegisterScreen()),
+              ),
+              style: TextButton.styleFrom(
+                foregroundColor: const Color(0xFF7B9FD4),
               ),
               child: const Text('Não tem conta? Cadastre-se'),
             ),

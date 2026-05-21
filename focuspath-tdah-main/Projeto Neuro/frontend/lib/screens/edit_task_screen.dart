@@ -16,6 +16,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
   late TextEditingController tituloController;
   late TextEditingController descricaoController;
   late String prioridade;
+  DateTime? dataLimite;
 
   final Map<String, Color> coresPrioridade = {
     'alta': Colors.red,
@@ -29,6 +30,19 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
     tituloController = TextEditingController(text: widget.tarefa['titulo']);
     descricaoController = TextEditingController(text: widget.tarefa['descricao']);
     prioridade = widget.tarefa['prioridade'] ?? 'media';
+    if (widget.tarefa['dataLimite'] != null) {
+      dataLimite = DateTime.tryParse(widget.tarefa['dataLimite']);
+    }
+  }
+
+  Future selecionarData() async {
+    final data = await showDatePicker(
+      context: context,
+      initialDate: dataLimite ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (data != null) setState(() => dataLimite = data);
   }
 
   Future editarTarefa() async {
@@ -37,7 +51,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
       final token = prefs.getString('token');
 
       final response = await http.put(
-        Uri.parse('http://10.0.2.2:4000/tasks/${widget.tarefa['id']}'),
+        Uri.parse('http://10.0.0.152:4000/tasks/${widget.tarefa['id']}'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
@@ -46,6 +60,7 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
           'titulo': tituloController.text,
           'descricao': descricaoController.text,
           'prioridade': prioridade,
+          'dataLimite': dataLimite?.toIso8601String(),
         }),
       );
 
@@ -117,6 +132,35 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
                   ),
                 );
               }).toList(),
+            ),
+            const SizedBox(height: 20),
+            const Text('Data limite', style: TextStyle(fontSize: 16)),
+            const SizedBox(height: 8),
+            GestureDetector(
+              onTap: selecionarData,
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.calendar_today, size: 18, color: Colors.grey),
+                    const SizedBox(width: 8),
+                    Text(
+                      dataLimite == null
+                          ? 'Selecionar data'
+                          : '${dataLimite!.day.toString().padLeft(2, '0')}/${dataLimite!.month.toString().padLeft(2, '0')}/${dataLimite!.year}',
+                      style: TextStyle(
+                        color: dataLimite == null ? Colors.grey : Colors.black,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             const SizedBox(height: 30),
             SizedBox(

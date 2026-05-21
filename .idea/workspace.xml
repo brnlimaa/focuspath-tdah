@@ -5,7 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f8594f6-f018-4a1f-b8f1-bd9f5a1ec35d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/markdown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/middleware/authMiddleware.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/assets/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/app_settings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Projeto facul.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Projeto facul.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/controllers/taskController.js" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/controllers/taskController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/routes/subtaskRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/routes/subtaskRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/routes/taskRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/backend/routes/taskRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/create_task_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/create_task_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/edit_task_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/edit_task_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/register_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/register_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/task_detail_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/screens/task_detail_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/services/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/lib/services/api_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/focuspath-tdah-main/Projeto Neuro/frontend/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +35,13 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -33,23 +61,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Projeto facul/focuspath-tdah-main/Projeto Neuro/frontend/lib",
+    "settings.editor.selected.configurable": "AndroidSdkUpdater",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projeto facul\focuspath-tdah-main\Projeto Neuro\frontend\lib" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Projeto facul\focuspath-tdah-main\Projeto Neuro\frontend\assets\images" />
+      <recent name="C:\Projeto facul\focuspath-tdah-main\Projeto Neuro\frontend\lib" />
+    </key>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="0f8594f6-f018-4a1f-b8f1-bd9f5a1ec35d" name="Changes" comment="" />
